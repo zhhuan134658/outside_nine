@@ -5,7 +5,13 @@ import store from './store';
 import utils from './config/util.js';
 import './libs/rem.js';
 import Vant from 'vant';
-import 'vant/lib/index.css';
+// import 'vant/lib/index.css';
+import { Lazyload } from 'vant';
+import './style/homePage.less';
+
+import 'vant/lib/index.less';
+
+Vue.use(Lazyload);
 
 Vue.use(Vant);
 import 'lib-flexible/flexible';

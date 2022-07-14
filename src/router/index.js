@@ -11,8 +11,14 @@ const routes = [
   //-----------首页
   {
     path: '/',
+    name: 'name',
     redirect: '/home',
     component: () => import('../pages/home.vue'),
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: () => import('../pages/login.vue'),
   },
   {
     path: '/home',
@@ -28,15 +34,54 @@ const routes = [
         redirect: '/homePage/homePageindex',
         children: [
           {
-            path: '/homePage/homePageindex', //首页-我的工作
+            path: '/homePage/homePageindex',
             name: 'homePageindex',
             component: () => import('../pages/homePage/appIndex.vue'),
           },
-          
         ],
       },
-
-      
+      //分类
+      {
+        path: '/classifiCation',
+        name: 'classifiCation',
+        component: () => import('../pages/classifiCation/index.vue'),
+        redirect: '/classifiCation/classList',
+        children: [
+          {
+            path: '/classifiCation/classList',
+            name: 'classList',
+            component: () => import('../pages/classifiCation/classList.vue'),
+          },
+        ],
+      },
+      //购物车
+      {
+        path: '/shoppingCart',
+        name: 'shoppingCart',
+        component: () => import('../pages/shoppingCart/index.vue'),
+        redirect: '/shoppingCart/shoppingList',
+        children: [
+          {
+            path: '/shoppingCart/shoppingList',
+            name: 'shoppingList',
+            component: () => import('../pages/shoppingCart/shoppingList.vue'),
+          },
+        ],
+      },
+      //我的
+      {
+        path: '/myOwn',
+        name: 'myOwn',
+        component: () => import('../pages/myOwn/index.vue'),
+        redirect: '/myOwn/myownList',
+        children: [
+          {
+            path: '/myOwn/myownList',
+            name: 'myownList',
+            component: () => import('../pages/myOwn/myownList.vue'),
+          },
+        ],
+      },
     ],
   },
 ];

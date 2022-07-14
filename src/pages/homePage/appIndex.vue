@@ -1,21 +1,152 @@
 <!--  -->
 <template>
-  <div id="test">
-    <div class="testname">测试</div>
-    <div>测试</div>
-    <van-tabbar v-model="active">
-      <van-tabbar-item icon="home-o">标签</van-tabbar-item>
-      <van-tabbar-item icon="search">标签</van-tabbar-item>
-      <van-tabbar-item icon="friends-o">标签</van-tabbar-item>
-      <van-tabbar-item icon="setting-o">标签</van-tabbar-item>
-    </van-tabbar>
+  <div id="appIndex">
+    <van-swipe :autoplay="3000" style="height: 200px">
+      <van-swipe-item v-for="(image, index) in images" :key="index">
+        <img v-lazy="image" />
+      </van-swipe-item>
+    </van-swipe>
+    <div class="menu_list">
+      <div
+        class="menu_list_item"
+        v-for="(item, index) in menuList"
+        :key="index"
+      >
+        <img class="item_img" v-lazy="item.imgsrc" alt="" />
+        <div class="item_name">{{ item.name }}</div>
+      </div>
+    </div>
+    <!-- 热门资讯  -->
+    <div class="notice">
+      <div class="notice_title">热门资讯</div>
+      <div class="notice_right">
+        <van-notice-bar
+          background="#ffffff"
+          left-icon="volume-o"
+          text="在代码阅读过程中人们说脏话的频率是衡量代码质量的唯一标准。"
+        />
+      </div>
+    </div>
+
+    <div class="valve_series">
+      <van-divider
+        :style="{
+          borderColor: '#9459f7',
+          padding: '10px 30px',
+        }"
+      >
+        热销产品
+      </van-divider>
+    </div>
+
+    <div class="contentList">
+      <div
+        class="contentList_item"
+        v-for="(item, index) in contentList"
+        :key="index"
+      >
+        <img v-lazy="item.imgsrc" alt="" />
+        <div class="con_name">{{ item.name }}</div>
+        <div class="price">¥{{ item.price }}</div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
 export default {
-  name: '',
+  name: 'appIndex',
   data() {
     return {
+      images: [
+        'https://img01.yzcdn.cn/vant/apple-1.jpg',
+        'https://img01.yzcdn.cn/vant/apple-2.jpg',
+      ],
+      menuList: [
+        {
+          imgsrc: 'http://www.jsngw.cn/Uploads/20220427/62692acf5de48.jpg',
+          name: '茅台集团',
+        },
+        {
+          imgsrc: 'http://www.jsngw.cn/Uploads/20220427/62692acf5de48.jpg',
+          name: '茅台集团',
+        },
+        {
+          imgsrc: 'http://www.jsngw.cn/Uploads/20220427/62692acf5de48.jpg',
+          name: '茅台集团',
+        },
+        {
+          imgsrc: 'http://www.jsngw.cn/Uploads/20220427/62692acf5de48.jpg',
+          name: '茅台集团',
+        },
+        {
+          imgsrc: 'http://www.jsngw.cn/Uploads/20220427/62692acf5de48.jpg',
+          name: '茅台集团',
+        },
+        {
+          imgsrc: 'http://www.jsngw.cn/Uploads/20220427/62692acf5de48.jpg',
+          name: '茅台集团',
+        },
+        {
+          imgsrc: 'http://www.jsngw.cn/Uploads/20220427/62692acf5de48.jpg',
+          name: '茅台集团',
+        },
+        {
+          imgsrc: 'http://www.jsngw.cn/Uploads/20220427/62692acf5de48.jpg',
+          name: '茅台集团',
+        },
+        {
+          imgsrc: 'http://www.jsngw.cn/Uploads/20220427/62692acf5de48.jpg',
+          name: '茅台集团',
+        },
+      ],
+      contentList: [
+        {
+          name: '茅台迎宾酒53411111577878',
+          price: '1254.52',
+          imgsrc: '	http://www.jsngw.cn/Uploads/Case/20220428/6269f70e94bbc.jpg',
+        },
+
+        {
+          name: '茅台迎宾酒53411111577878',
+          price: '1254.52',
+          imgsrc: '	http://www.jsngw.cn/Uploads/Case/20220428/6269f70e94bbc.jpg',
+        },
+        {
+          name: '茅台迎宾酒53411111577878',
+          price: '1254.52',
+          imgsrc: '	http://www.jsngw.cn/Uploads/Case/20220428/6269f70e94bbc.jpg',
+        },
+        {
+          name: '茅台迎宾酒53411111577878',
+          price: '1254.52',
+          imgsrc: '	http://www.jsngw.cn/Uploads/Case/20220428/6269f70e94bbc.jpg',
+        },
+        {
+          name: '茅台迎宾酒53411111577878',
+          price: '1254.52',
+          imgsrc: '	http://www.jsngw.cn/Uploads/Case/20220428/6269f70e94bbc.jpg',
+        },
+        {
+          name: '茅台迎宾酒53411111577878',
+          price: '1254.52',
+          imgsrc: '	http://www.jsngw.cn/Uploads/Case/20220428/6269f70e94bbc.jpg',
+        },
+        {
+          name: '茅台迎宾酒53411111577878',
+          price: '1254.52',
+          imgsrc: '	http://www.jsngw.cn/Uploads/Case/20220428/6269f70e94bbc.jpg',
+        },
+        {
+          name: '茅台迎宾酒53411111577878',
+          price: '1254.52',
+          imgsrc: '	http://www.jsngw.cn/Uploads/Case/20220428/6269f70e94bbc.jpg',
+        },
+        {
+          name: '茅台迎宾酒53411111577878',
+          price: '1254.52',
+          imgsrc: '	http://www.jsngw.cn/Uploads/Case/20220428/6269f70e94bbc.jpg',
+        },
+      ],
       active: 0,
     };
   },
@@ -40,11 +171,5 @@ export default {
 </script>
 <style lang='less'>
 #test {
-  height: 1rem;
-  background: red;
-  font-size: 1rem;
-}
-.testname {
-  font-size: 0.2rem;
 }
 </style>

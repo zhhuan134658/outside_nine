@@ -1,7 +1,8 @@
 const CompressionPlugin = require('compression-webpack-plugin');
 const Timestamp = new Date().getTime();
-const createThemeColorReplacerPlugin = require('./src/config/theme-color-replacer.plugin.config.js');
 const path = require('path');
+const myTheme = path.resolve(__dirname, './src/style/vantChange.less');
+
 function resolve(dir) {
   return path.join(__dirname, dir);
 }
@@ -16,26 +17,15 @@ module.exports = {
   lintOnSave: false,
   productionSourceMap: false, // 不需要生产环境的 source map 设置false（减小dist文件大小，加速构建）
   chainWebpack: chainWebpack,
-  //   css: {
-  //     loaderOptions: {
-  //       postcss: {
-  //         plugins: [
-  //           require('autoprefixer')({
-  //             // 配置使用 autoprefixer
-  //             overrideBrowserslist: ['last 15 versions'],
-  //           }),
-  //           require('postcss-pxtorem')({
-  //             rootValue: 37.5, // 换算的基数
-  //             // 忽略转换正则匹配项。插件会转化所有的样式的px。比如引入了三方UI，也会被转化。目前我使用 selectorBlackList字段，来过滤
-  //             //如果个别地方不想转化px。可以简单的使用大写的 PX 或 Px 。
-  //             selectorBlackList: ['ig'],
-  //             propList: ['*'],
-  //             exclude: /node_modules/,
-  //           }),
-  //         ],
-  //       },
-  //     },
-  //   },
+  css: {
+    loaderOptions: {
+      less: {
+        modifyVars: {
+          hack: `true; @import "${myTheme}";`,
+        },
+      },
+    },
+  },
   devServer: {
     proxy: {
       //代理跨域
@@ -54,7 +44,6 @@ module.exports = {
       chunkFilename: `./static/[name].${Timestamp}.js`,
     },
     plugins: [
-      createThemeColorReplacerPlugin(), // webpack plugins
       new CompressionPlugin({
         algorithm: 'gzip', // 使用gzip压缩
         test: /\.js$|\.html$|\.css$/, // 匹配文件名
