@@ -8,6 +8,7 @@ import Vant from 'vant';
 // import 'vant/lib/index.css';
 import { Lazyload } from 'vant';
 import './style/homePage.less';
+import './style/classifiCation.less';
 
 import 'vant/lib/index.less';
 
