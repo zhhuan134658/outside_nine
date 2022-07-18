@@ -19,7 +19,7 @@
         <div class="rightList" v-for="(item, index) in rightList" :key="index">
           <img class="tImg" v-lazy="item.imgsrc" alt="" />
           <div class="rTitle">
-            <div class="title">{{ item.name }}</div>
+            <div class="title" @click="lookInfo(item)">{{ item.name }}</div>
             <div class="onBot">
               <div class="onBotfont">¥{{ item.price }}</div>
               <div><van-icon name="shopping-cart-o" /></div>
@@ -90,7 +90,7 @@ export default {
         {
           imgsrc:
             'https://dingyunlaowu.oss-cn-hangzhou.aliyuncs.com/xiezhu//SGsPtQy25b1657903680186.jpg',
-          name: '贵州茅台酒红色2222圣2222222地1935',
+          name: '贵州茅台酒红色21111111222圣2222222地1935',
           price: '1536.63',
         },
         {
@@ -146,6 +146,12 @@ export default {
   methods: {
     leftClick(item, index) {
       this.leftActive = index;
+    },
+    lookInfo(item) {
+      this.$router.push({
+        path: '/classifiCation/goodsInfo',
+        query: { iteminfo: item },
+      });
     },
   },
   //⽣命周期 - 创建完成（可以访问当前this实例）

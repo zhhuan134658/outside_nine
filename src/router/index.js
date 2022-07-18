@@ -52,6 +52,11 @@ const routes = [
             name: 'classList',
             component: () => import('../pages/classifiCation/classList.vue'),
           },
+          {
+            path: '/classifiCation/goodsInfo', //商品详情
+            name: 'goodsInfo',
+            component: () => import('../pages/classifiCation/goodsInfo.vue'),
+          },
         ],
       },
       //购物车

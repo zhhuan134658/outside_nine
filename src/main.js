@@ -9,7 +9,8 @@ import Vant from 'vant';
 import { Lazyload } from 'vant';
 import './style/homePage.less';
 import './style/classifiCation.less';
-
+import './style/shoppingCart.less';
+import './style/myOwn.less';
 import 'vant/lib/index.less';
 
 Vue.use(Lazyload);

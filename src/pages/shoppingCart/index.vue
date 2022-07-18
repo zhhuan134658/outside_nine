@@ -1,6 +1,6 @@
 <!--  -->
 <template>
-  <div id="homePage">
+  <div id="shoppingCart">
     <router-view />
   </div>
 </template>
