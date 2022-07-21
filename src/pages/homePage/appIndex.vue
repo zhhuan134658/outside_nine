@@ -11,8 +11,9 @@
         class="menu_list_item"
         v-for="(item, index) in menuList"
         :key="index"
+        @click="goInfo(item)"
       >
-        <img class="item_img" v-lazy="item.imgsrc" alt="" />
+        <img class="item_img" v-lazy="item.pic" alt="" />
         <div class="item_name">{{ item.name }}</div>
       </div>
     </div>
@@ -45,9 +46,9 @@
         v-for="(item, index) in contentList"
         :key="index"
       >
-        <img v-lazy="item.imgsrc" alt="" />
-        <div class="con_name">{{ item.name }}</div>
-        <div class="price">¥{{ item.price }}</div>
+        <img v-lazy="item.pic" alt="" />
+        <div class="con_name">{{ item.skuName }}</div>
+        <div class="price">¥{{ item.pice }}</div>
       </div>
     </div>
   </div>
@@ -61,92 +62,8 @@ export default {
         'https://img01.yzcdn.cn/vant/apple-1.jpg',
         'https://img01.yzcdn.cn/vant/apple-2.jpg',
       ],
-      menuList: [
-        {
-          imgsrc: 'http://www.jsngw.cn/Uploads/20220427/62692acf5de48.jpg',
-          name: '茅台集团',
-        },
-        {
-          imgsrc: 'http://www.jsngw.cn/Uploads/20220427/62692acf5de48.jpg',
-          name: '茅台集团',
-        },
-        {
-          imgsrc: 'http://www.jsngw.cn/Uploads/20220427/62692acf5de48.jpg',
-          name: '茅台集团',
-        },
-        {
-          imgsrc: 'http://www.jsngw.cn/Uploads/20220427/62692acf5de48.jpg',
-          name: '茅台集团',
-        },
-        {
-          imgsrc: 'http://www.jsngw.cn/Uploads/20220427/62692acf5de48.jpg',
-          name: '茅台集团',
-        },
-        {
-          imgsrc: 'http://www.jsngw.cn/Uploads/20220427/62692acf5de48.jpg',
-          name: '茅台集团',
-        },
-        {
-          imgsrc: 'http://www.jsngw.cn/Uploads/20220427/62692acf5de48.jpg',
-          name: '茅台集团',
-        },
-        {
-          imgsrc: 'http://www.jsngw.cn/Uploads/20220427/62692acf5de48.jpg',
-          name: '茅台集团',
-        },
-        {
-          imgsrc: 'http://www.jsngw.cn/Uploads/20220427/62692acf5de48.jpg',
-          name: '茅台集团',
-        },
-      ],
-      contentList: [
-        {
-          name: '茅台迎宾酒53411111577878',
-          price: '1254.52',
-          imgsrc: '	http://www.jsngw.cn/Uploads/Case/20220428/6269f70e94bbc.jpg',
-        },
-
-        {
-          name: '茅台迎宾酒53411111577878',
-          price: '1254.52',
-          imgsrc: '	http://www.jsngw.cn/Uploads/Case/20220428/6269f70e94bbc.jpg',
-        },
-        {
-          name: '茅台迎宾酒53411111577878',
-          price: '1254.52',
-          imgsrc: '	http://www.jsngw.cn/Uploads/Case/20220428/6269f70e94bbc.jpg',
-        },
-        {
-          name: '茅台迎宾酒53411111577878',
-          price: '1254.52',
-          imgsrc: '	http://www.jsngw.cn/Uploads/Case/20220428/6269f70e94bbc.jpg',
-        },
-        {
-          name: '茅台迎宾酒53411111577878',
-          price: '1254.52',
-          imgsrc: '	http://www.jsngw.cn/Uploads/Case/20220428/6269f70e94bbc.jpg',
-        },
-        {
-          name: '茅台迎宾酒53411111577878',
-          price: '1254.52',
-          imgsrc: '	http://www.jsngw.cn/Uploads/Case/20220428/6269f70e94bbc.jpg',
-        },
-        {
-          name: '茅台迎宾酒53411111577878',
-          price: '1254.52',
-          imgsrc: '	http://www.jsngw.cn/Uploads/Case/20220428/6269f70e94bbc.jpg',
-        },
-        {
-          name: '茅台迎宾酒53411111577878',
-          price: '1254.52',
-          imgsrc: '	http://www.jsngw.cn/Uploads/Case/20220428/6269f70e94bbc.jpg',
-        },
-        {
-          name: '茅台迎宾酒53411111577878',
-          price: '1254.52',
-          imgsrc: '	http://www.jsngw.cn/Uploads/Case/20220428/6269f70e94bbc.jpg',
-        },
-      ],
+      menuList: [],
+      contentList: [],
       active: 0,
     };
   },
@@ -155,9 +72,39 @@ export default {
   //监控data中的数据变化
   watch: {},
   //⽅法集合
-  methods: {},
+  methods: {
+    getqueryList() {
+      this.axiosPost('/pyCategory/queryList', {
+        name: '',
+      }).then(res => {
+        this.menuList = res.data.data.list;
+        console.log(res);
+      });
+    },
+    //热销产品
+    getpySku() {
+      this.axiosPost('/pySku/queryList', {
+        status: 1,
+      }).then(res => {
+        this.contentList = res.data.data.list;
+        console.log(res);
+      });
+    },
+    goInfo(item) {
+      console.log(item, 'item');
+      this.$router.push({
+        path: '/homePage/infoindex',
+        query: {
+          item: JSON.stringify(item),
+        },
+      });
+    },
+  },
   //⽣命周期 - 创建完成（可以访问当前this实例）
-  created() {},
+  created() {
+    this.getqueryList();
+    this.getpySku();
+  },
   //⽣命周期 - 挂载完成（可以访问DOM元素）
   mounted() {},
   //beforeCreate() {}, //⽣命周期 - 创建之前

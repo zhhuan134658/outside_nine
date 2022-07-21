@@ -12,7 +12,10 @@
     </div>
     <div class="conteng">
       <div class="diuvone">
-        未绑定商户编号 &nbsp;<van-button size="small" type="warning"
+        未绑定商户编号 &nbsp;<van-button
+          size="small"
+          type="warning"
+          @click="aaaa"
           >警告按钮</van-button
         >
       </div>
@@ -67,7 +70,14 @@ export default {
   //监控data中的数据变化
   watch: {},
   //⽅法集合
-  methods: {},
+  methods: {
+    aaaa() {
+      this.axiosPost('/pyUser/login', {
+        phone: '18134708099',
+        password: 'qwer',
+      }).then(res => {});
+    },
+  },
   //⽣命周期 - 创建完成（可以访问当前this实例）
   created() {},
   //⽣命周期 - 挂载完成（可以访问DOM元素）

@@ -4,7 +4,13 @@
     <div class="content">
       <div class="con_item">
         <van-checkbox-group v-model="result" ref="checkboxGroup">
-          <van-checkbox checked-color="#ee0a24" name="a" label-disabled>
+          <van-checkbox
+            checked-color="#ee0a24"
+            name="a"
+            label-disabled
+            v-for="(item, index) in shopList"
+            :key="index"
+          >
             <img
               src="http://www.jsngw.cn/Uploads/ueditor/image/20220428/1651111673758176.jpg"
               alt=""
@@ -83,9 +89,17 @@ export default {
       }
       console.log(item);
     },
+    getshopList() {
+      this.axiosPost('/pyShopping/getList', {}).then(res => {
+        this.shopList = res.data.data;
+        console.log(res);
+      });
+    },
   },
   //⽣命周期 - 创建完成（可以访问当前this实例）
-  created() {},
+  created() {
+    this.getshopList();
+  },
   //⽣命周期 - 挂载完成（可以访问DOM元素）
   mounted() {},
   //beforeCreate() {}, //⽣命周期 - 创建之前

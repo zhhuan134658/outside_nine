@@ -18,7 +18,12 @@ const routes = [
   {
     path: '/login',
     name: 'login',
-    component: () => import('../pages/login.vue'),
+    component: () => import('../pages/login/login.vue'),
+  },
+  {
+    path: '/Register',
+    name: 'Register',
+    component: () => import('../pages/login/Register.vue'),
   },
   {
     path: '/home',
@@ -37,6 +42,11 @@ const routes = [
             path: '/homePage/homePageindex',
             name: 'homePageindex',
             component: () => import('../pages/homePage/appIndex.vue'),
+          },
+          {
+            path: '/homePage/infoindex',
+            name: 'infoindex',
+            component: () => import('../pages/homePage/infoindex.vue'),
           },
         ],
       },

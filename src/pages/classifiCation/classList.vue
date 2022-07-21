@@ -11,17 +11,17 @@
           @click="leftClick(item, index)"
           :class="index == leftActive ? 'leftActive' : ''"
         >
-          <img v-lazy="item.imgsrc" alt="" />
+          <img v-lazy="item.pic" alt="" />
           <div>{{ item.name }}</div>
         </div>
       </div>
       <div class="contentRight">
         <div class="rightList" v-for="(item, index) in rightList" :key="index">
-          <img class="tImg" v-lazy="item.imgsrc" alt="" />
+          <img class="tImg" v-lazy="item.pic" alt="" />
           <div class="rTitle">
-            <div class="title" @click="lookInfo(item)">{{ item.name }}</div>
+            <div class="title" @click="lookInfo(item)">{{ item.skuName }}</div>
             <div class="onBot">
-              <div class="onBotfont">¥{{ item.price }}</div>
+              <div class="onBotfont">¥{{ item.pice }}</div>
               <div><van-icon name="shopping-cart-o" /></div>
             </div>
           </div>
@@ -36,106 +36,8 @@ export default {
   data() {
     return {
       leftActive: 0,
-      leftList: [
-        {
-          imgsrc: 'http://www.jsngw.cn/Uploads/20220427/62692acf5de48.jpg',
-          name: '茅台集团',
-        },
-        {
-          imgsrc: 'http://www.jsngw.cn/Uploads/20220427/62692acf5de48.jpg',
-          name: '茅台集团',
-        },
-        {
-          imgsrc: 'http://www.jsngw.cn/Uploads/20220427/62692acf5de48.jpg',
-          name: '茅台集团',
-        },
-        {
-          imgsrc: 'http://www.jsngw.cn/Uploads/20220427/62692acf5de48.jpg',
-          name: '茅台集团',
-        },
-        {
-          imgsrc: 'http://www.jsngw.cn/Uploads/20220427/62692acf5de48.jpg',
-          name: '茅台集团',
-        },
-        {
-          imgsrc: 'http://www.jsngw.cn/Uploads/20220427/62692acf5de48.jpg',
-          name: '茅台集团',
-        },
-        {
-          imgsrc: 'http://www.jsngw.cn/Uploads/20220427/62692acf5de48.jpg',
-          name: '茅台集团',
-        },
-        {
-          imgsrc: 'http://www.jsngw.cn/Uploads/20220427/62692acf5de48.jpg',
-          name: '茅台集团',
-        },
-        {
-          imgsrc: 'http://www.jsngw.cn/Uploads/20220427/62692acf5de48.jpg',
-          name: '茅台集团',
-        },
-        {
-          imgsrc: 'http://www.jsngw.cn/Uploads/20220427/62692acf5de48.jpg',
-          name: '茅台集团',
-        },
-        {
-          imgsrc: 'http://www.jsngw.cn/Uploads/20220427/62692acf5de48.jpg',
-          name: '茅台集团',
-        },
-        {
-          imgsrc: 'http://www.jsngw.cn/Uploads/20220427/62692acf5de48.jpg',
-          name: '茅台集团',
-        },
-      ],
-      rightList: [
-        {
-          imgsrc:
-            'https://dingyunlaowu.oss-cn-hangzhou.aliyuncs.com/xiezhu//SGsPtQy25b1657903680186.jpg',
-          name: '贵州茅台酒红色21111111222圣2222222地1935',
-          price: '1536.63',
-        },
-        {
-          imgsrc:
-            'https://dingyunlaowu.oss-cn-hangzhou.aliyuncs.com/xiezhu//SGsPtQy25b1657903680186.jpg',
-          name: '贵州茅台酒红色2222圣2222222地1935',
-          price: '1536.63',
-        },
-        {
-          imgsrc:
-            'https://dingyunlaowu.oss-cn-hangzhou.aliyuncs.com/xiezhu//SGsPtQy25b1657903680186.jpg',
-          name: '贵州茅台酒红色2222圣2222222地1935',
-          price: '1536.63',
-        },
-        {
-          imgsrc:
-            'https://dingyunlaowu.oss-cn-hangzhou.aliyuncs.com/xiezhu//SGsPtQy25b1657903680186.jpg',
-          name: '贵州茅台酒红色2222圣2222222地1935',
-          price: '1536.63',
-        },
-        {
-          imgsrc:
-            'https://dingyunlaowu.oss-cn-hangzhou.aliyuncs.com/xiezhu//SGsPtQy25b1657903680186.jpg',
-          name: '贵州茅台酒红色2222圣2222222地1935',
-          price: '1536.63',
-        },
-        {
-          imgsrc:
-            'https://dingyunlaowu.oss-cn-hangzhou.aliyuncs.com/xiezhu//SGsPtQy25b1657903680186.jpg',
-          name: '贵州茅台酒红色2222圣2222222地1935',
-          price: '1536.63',
-        },
-        {
-          imgsrc:
-            'https://dingyunlaowu.oss-cn-hangzhou.aliyuncs.com/xiezhu//SGsPtQy25b1657903680186.jpg',
-          name: '贵州茅台酒红色2222圣2222222地1935',
-          price: '1536.63',
-        },
-        {
-          imgsrc:
-            'https://dingyunlaowu.oss-cn-hangzhou.aliyuncs.com/xiezhu//SGsPtQy25b1657903680186.jpg',
-          name: '贵州茅台酒红色2222圣2222222地1935',
-          price: '1536.63',
-        },
-      ],
+      leftList: [],
+      rightList: [],
     };
   },
   //监听属性类似于data概念
@@ -146,6 +48,7 @@ export default {
   methods: {
     leftClick(item, index) {
       this.leftActive = index;
+      this.getinfiList(item);
     },
     lookInfo(item) {
       this.$router.push({
@@ -153,9 +56,28 @@ export default {
         query: { iteminfo: item },
       });
     },
+    getqueryList() {
+      this.axiosPost('/pyCategory/queryList', {
+        name: '',
+      }).then(res => {
+        this.leftList = res.data.data.list;
+        console.log(res);
+      });
+    },
+    getinfiList(item) {
+      this.axiosPost('/pySku/queryList', {
+        categoryId: item.id,
+      }).then(res => {
+        this.rightList = res.data.data.list;
+        console.log(res);
+      });
+    },
   },
   //⽣命周期 - 创建完成（可以访问当前this实例）
-  created() {},
+  created() {
+    this.getqueryList();
+    this.getinfiList({ id: '4' });
+  },
   //⽣命周期 - 挂载完成（可以访问DOM元素）
   mounted() {},
   //beforeCreate() {}, //⽣命周期 - 创建之前
